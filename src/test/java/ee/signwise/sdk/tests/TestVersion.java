@@ -20,6 +20,7 @@ public class TestVersion {
 	public static void main(String[] args)
 	{
 		try {
+			// The only parameter is the location of the config file to read server connection parameters
 			String sConfig = args[0];
 			System.out.println("Invoking version: config: " + sConfig);
 			ConfigManager.init(sConfig);

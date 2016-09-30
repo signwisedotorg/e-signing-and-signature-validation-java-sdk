@@ -21,6 +21,9 @@ public class TestCertificateParse {
 	public static void main(String[] args)
 	{
 		try {
+			// command line parameters
+			// 1. location of the config file to read server connection parameters
+			// 2. path and name of a certificate file on PEM/Base64 format
 			String sConfig = args[0];
 			String sCert = args[1];
 			System.out.println("Parsing cert: " + sCert + " config: " + sConfig);

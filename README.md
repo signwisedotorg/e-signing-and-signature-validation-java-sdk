@@ -46,4 +46,33 @@ There are a few shell scripts for UNIX systems in the scripts directory. Try usi
 Check the CLASSPATH definition in the scripts. It is assumed the mavn has downloaded the required dependent java libraries to your local repository.
 This schould give you the same answer as the previous curl command if the config file syntax is correct.
 
+# Using the SDK
+First you have to obtain an instance of SignWiseConnection so you can send commands to SignWise Services. 
+You can either create an instance of SignWiseConnection directly by passing the URL to service location as well as
+client keystore and truststore parameters or by using the connection info from the config file as follows:
+
+ConfigManager.init(path-and-file-name-of-config-file);
+
+ConfigManager cfg = ConfigManager.instance();
+
+SignWiseConnection conn = cfg.getSignWiseConnection();
+
+# Reading service version info
+The method SignWiseConnection.serviceVersion() retrieves service version info.
+
+There are no input parameters.
+Please see the testprogramm TestVersion.java. You can invoke it using the script
+
+./scripts/testversion.sh
+
+In case of success the API returns an instance of VersionInfo and in case of failure an instance of ErrorResponse.
+
+# Parsing certificate info
+The method SignWiseConnection.serviceCertificateParse(X509Certificate cert) sends certifcate to server and returns parsed certificate info.
+The only input parameter is an X509Certificate. You can read the certificate from a file or any other input source using the SignWiseConnection.readCertFromStream(InputStream) method.
+Please see the testprogramm TestCertificateParse.java. You can invoke it using the script
+
+./scripts/testcertparse.sh path-and-file-name-of-a-certificate-in-base64
+
+In case of success the API returns an instance of CertificateInfo and in case of failure an instance of ErrorResponse.
 
