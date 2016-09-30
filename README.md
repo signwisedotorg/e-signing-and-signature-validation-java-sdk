@@ -22,7 +22,9 @@ ask for the signup document. This is a pdf file where you document your servers 
 in pem form and fill in some other details. Then digitally sign this document and send back to support@signwiseservices.com.
 Once your certificate has been registered check if your connection to SignWise services works using:
 
-curl -v -s -k --cert mykeystore.p12:password https://aws-api-dev.signwise.org/version
+curl -v -s -k --cert mykeystore.p12:password https://signwise-services-access-location/version
+
+Please replace here signwise-services-access-location with correct services url obtained from support.
 
 In case of success you schould get an answer like:
 {"name":"dms-api","version":"1.1.2"}
