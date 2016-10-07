@@ -42,7 +42,7 @@ applications for testing the signature operations are invoked from the command l
 create a signature using a smartcard. For this purpose use the PKCS#11 driver for your smartcard and IAIK Pkcs11wrapper library
 provided in the lib directory. In order to successfully compile with maven you must install the iaik pkcs11wrappe in aven local repo using the command:
 
-mvn install:install-file -Dfile=lib/iaikPkcs11Wrapper.jar -DgroupId=iaik.pkcs -DartifactId=iaikPkcs11Wrapperc -Dversion=1.2.16  -Dpackaging=jar
+mvn install:install-file -Dfile=lib/iaikPkcs11Wrapper.jar -DgroupId=iaik.pkcs -DartifactId=iaikPkcs11Wrapper -Dversion=1.2.16  -Dpackaging=jar
 
 Now compile the sdk using maven
 
