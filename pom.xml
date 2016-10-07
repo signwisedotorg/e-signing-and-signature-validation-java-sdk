@@ -55,6 +55,11 @@
     		<artifactId>commons-codec</artifactId>
     		<version>1.9</version>
 		</dependency>	
+		<dependency>
+      <groupId>iaik.pkcs</groupId>
+      <artifactId>iaikPkcs11Wrapper</artifactId>
+      <version>[1.2.16,)</version>
+    </dependency>
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>

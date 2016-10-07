@@ -35,6 +35,15 @@ and password. You can get service location from support@signwiseservices.com. Th
 
 keytool -importkeystore -srckeystore mykeystore.p12 -srcstoretype PKCS12 -srcstorepass password -destkeystore keykeystore.jks -deststoretype JKS -deststorepass new-password
 
+This product includes software developed by IAIK of Graz University of Technology.
+Even if the sdk itself doesn't handle signing with smartcards since the sdk is meant for a java web-application
+and thus in the web-application signatures will usually be created with the SignWise plugin. But the sample
+applications for testing the signature operations are invoked from the command line and thay have to
+create a signature using a smartcard. For this purpose use the PKCS#11 driver for your smartcard and IAIK Pkcs11wrapper library
+provided in the lib directory. In order to successfully compile with maven you must install the iaik pkcs11wrappe in aven local repo using the command:
+
+mvn install:install-file -Dfile=lib/iaikPkcs11Wrapper.jar -DgroupId=iaik.pkcs -DartifactId=iaikPkcs11Wrapperc -Dversion=1.2.16  -Dpackaging=jar
+
 Now compile the sdk using maven
 
 mvn clean install -DskipTests
