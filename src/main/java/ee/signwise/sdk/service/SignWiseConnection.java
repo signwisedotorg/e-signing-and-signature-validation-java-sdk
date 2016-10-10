@@ -494,8 +494,8 @@ public class SignWiseConnection {
 			ConfigManager cfg = ConfigManager.instance();
 			String sUrl = cfg.getProperty("SERVER_URL") + "/authentication/verify";
 			JSONObject jo = new JSONObject();
-			jo.put("digest", bin2hex(digest));
-			jo.put("signature", bin2hex(signature));
+			jo.put("digest", ConvertUtils.bin2hex(digest));
+			jo.put("signature", ConvertUtils.bin2hex(signature));
 			jo.put("certificate", new String(writeCertToPem(cert)));
 			if(caCerts != null && caCerts.size() > 0) {
 				JSONArray jarr = new JSONArray();
@@ -1386,76 +1386,7 @@ public class SignWiseConnection {
     }
     
 
-	/**
-	 * Send / receive json request
-	 * @param url service access location
-	 * @param request json request
-	 * @param method http method
-	 * @param nTimeout http timout in milliseconds
-	 * @return service sresponse
-	 * @throws IOException
-	 */
-	/*private byte[] callUrl(String url, String request, String method, int nTimeout)
-			throws IOException
-	{
-		URL uUrl = new URL(url);
-    	if(m_logger.isDebugEnabled())
-				m_logger.debug("Connecting to server url: " + url);
-    	if(m_keyStore != null) {
-    		if(m_logger.isDebugEnabled())
-				m_logger.debug("Using keystore " + m_keyStore.getFileName());
-    		System.setProperty("javax.net.ssl.keyStore", m_keyStore.getFileName());
-    		System.setProperty("javax.net.ssl.keyStorePassword", m_keyStore.getPassword());
-    		System.setProperty("javax.net.ssl.keyStoreType", m_keyStore.getType());
-    	}
-    	if(m_trustStore != null) {
-    		if(m_logger.isDebugEnabled())
-				m_logger.debug("Using truststore " + m_trustStore.getFileName());
-    		System.setProperty("javax.net.ssl.trustStore", m_trustStore.getFileName());
-    		System.setProperty("javax.net.ssl.trustStorePassword", m_trustStore.getPassword());
-    		System.setProperty("javax.net.ssl.trustStoreType", m_trustStore.getType());
-    	}
-    	//System.setProperty("javax.net.debug", "ssl");
-    	//URLConnection con = uUrl.openConnection();
-    	HttpURLConnection conn = (HttpURLConnection) uUrl.openConnection();
-    	if("PATCH".equals(method)) {
-    		conn.setRequestProperty("X-HTTP-Method-Override", "PATCH");
-    		conn.setRequestMethod("POST");
-    	} else
-    		conn.setRequestMethod(method);
-		conn.setRequestProperty("Accept", "application/json");
-		conn.setRequestProperty("content-type", "application/json");
-    	if(nTimeout >= 0) {
-    		if(m_logger.isDebugEnabled())
-				m_logger.debug("Setting connection and read timeout to: " + nTimeout + " [ms]");
-    		conn.setConnectTimeout(nTimeout);
-    		conn.setReadTimeout(nTimeout);
-    	}
-    	conn.setAllowUserInteraction(false);
-    	conn.setUseCaches(false);
-    	conn.setDoOutput(true);
-    	conn.setDoInput(true);
-    	OutputStream os = conn.getOutputStream();
-    	os.write(request.getBytes("UTF-8"));
-    	os.close();
-    	//if (conn.getResponseCode() != 200) 
-			throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
-		
-    	// read the response
-    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	if (conn != null && conn.getInputStream() != null) {
-    		InputStream is = conn.getInputStream();
-    		byte[] data = new byte[1024];
-    		int nRead = 0;
-    		while((nRead = is.read(data)) > 0) {
-    			bos.write(data, 0, nRead);
-    		}
-    		is.close();
-    	}
-    	if(m_logger.isDebugEnabled())
-				m_logger.debug("Received: " + new String(bos.toByteArray()));
-    	return bos.toByteArray();
-	} */
+
 	
     /**
 	 * Send / receive json request
@@ -1527,48 +1458,6 @@ public class SignWiseConnection {
     	return bos.toByteArray();
 	}
 	
-	/** 
-     * Converts a hex string to byte array
-     * @param hexString input data
-     * @return byte array
-     */
-    public byte[] hex2bin(String hexString)
-    {
-    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	try {
-    		for(int i = 0; (hexString != null) && 
-    			(i < hexString.length()); i += 2) {
-				String tmp = hexString.substring(i, i+2);  
-				Integer x = new Integer(Integer.parseInt(tmp, 16));
-    			bos.write(x.byteValue());    			
-    		}
-    	} catch(Exception ex) {
-    		m_logger.error("Error converting hex string: " + ex);
-    	}
-    	return bos.toByteArray();
-    }
-    
-    /**
-     * Converts a byte array to hex string
-     * @param arr byte array input data
-     * @return hex string
-     */
-    public String bin2hex(byte[] arr)
-    {
-    	StringBuffer sb = new StringBuffer();
-    	for(int i = 0; i < arr.length; i++) {
-    		String str = Integer.toHexString((int)arr[i]);
-    		if(str.length() == 2)
-    			sb.append(str);
-    		if(str.length() < 2) {
-    			sb.append("0");
-    			sb.append(str);
-    		}
-    		if(str.length() > 2)
-    			sb.append(str.substring(str.length()-2));
-    	}
-    	return sb.toString();
-    }
-    
+	
     
 }

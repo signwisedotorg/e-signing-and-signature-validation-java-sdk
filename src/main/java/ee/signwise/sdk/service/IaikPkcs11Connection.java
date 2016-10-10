@@ -175,7 +175,7 @@ public class IaikPkcs11Connection {
 	            	if(keys != null && keys.length > 0) {
             		for(int i = 0; !bFound && i < keys.length; i++) {
             			sigKey = (RSAPrivateKey)keys[i];
-            			String keyIdHex = bin2hex(sigKey.getId().getByteArrayValue());
+            			String keyIdHex = ConvertUtils.bin2hex(sigKey.getId().getByteArrayValue());
             			if(m_logger.isDebugEnabled())
             				m_logger.debug("Key " + i + " id: " + keyIdHex);
             			// add digest asn.1 structure prefix
@@ -202,48 +202,7 @@ public class IaikPkcs11Connection {
     } 
     
     
-    /** 
-     * Converts a hex string to byte array
-     * @param hexString input data
-     * @return byte array
-     */
-    public byte[] hex2bin(String hexString)
-    {
-    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	try {
-    		for(int i = 0; (hexString != null) && 
-    			(i < hexString.length()); i += 2) {
-				String tmp = hexString.substring(i, i+2);  
-				Integer x = new Integer(Integer.parseInt(tmp, 16));
-    			bos.write(x.byteValue());    			
-    		}
-    	} catch(Exception ex) {
-    		m_logger.error("Error converting hex string: " + ex);
-    	}
-    	return bos.toByteArray();
-    }
     
-    /**
-     * Converts a byte array to hex string
-     * @param arr byte array input data
-     * @return hex string
-     */
-    public String bin2hex(byte[] arr)
-    {
-    	StringBuffer sb = new StringBuffer();
-    	for(int i = 0; i < arr.length; i++) {
-    		String str = Integer.toHexString((int)arr[i]);
-    		if(str.length() == 2)
-    			sb.append(str);
-    		if(str.length() < 2) {
-    			sb.append("0");
-    			sb.append(str);
-    		}
-    		if(str.length() > 2)
-    			sb.append(str.substring(str.length()-2));
-    	}
-    	return sb.toString();
-    }
     
     /** SHA1 digest data is allways 20 bytes */
     public static final int SHA1_DIGEST_LENGTH = 20;

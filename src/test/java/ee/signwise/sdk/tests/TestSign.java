@@ -47,11 +47,11 @@ public class TestSign {
 			System.out.println("GOT: " + sResp);
 			if(sResp != null && sResp instanceof SignaturePrepareResponse) {
 				SignaturePrepareResponse sigresp = (SignaturePrepareResponse)sResp;
-				byte[] digest = conn.hex2bin(sigresp.getDigest());
+				byte[] digest = ConvertUtils.hex2bin(sigresp.getDigest());
 				System.out.println("Digest: " + sigresp.getDigest() + " type: " + sigresp.getDigestType());
 				byte[] signature = pkcs11.sign(digest, nSlot, sPin);
 				System.out.println("Got signature: " + ((signature != null) ? signature.length : 0));
-				ServerResponse sResp2 = conn.serviceSignFinalize(sCntType, sInputPath, conn.bin2hex(signature), "ee");
+				ServerResponse sResp2 = conn.serviceSignFinalize(sCntType, sInputPath, ConvertUtils.bin2hex(signature), "ee");
 				System.out.println("GOT: " + sResp2);
 			}
 				

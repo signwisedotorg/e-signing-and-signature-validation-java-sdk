@@ -13,6 +13,7 @@ limitations under the License.
 package ee.signwise.sdk.tests;
 import ee.signwise.sdk.model.*;
 import ee.signwise.sdk.service.*;
+
 import java.io.File;
 import java.util.List;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class TestAuthenticate {
 			System.out.println("Got certs: " + ((lcerts != null) ? lcerts.size() : 0));
 			byte[] signature = pkcs11.sign(digest, nSlot, sPin);
 			System.out.println("Got signature: " + ((signature != null) ? signature.length : 0));
-			System.out.println("Digest: " + pkcs11.bin2hex(digest) + " signature " + pkcs11.bin2hex(signature));
+			System.out.println("Digest: " + ConvertUtils.bin2hex(digest) + " signature " + ConvertUtils.bin2hex(signature));
 			SignWiseConnection conn = cfg.getSignWiseConnection();
 			String sResp = conn.serviceAuthenticate(digest, signature, lcerts.get(0), null);
 			System.out.println("GOT: " + sResp);

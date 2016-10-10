@@ -165,8 +165,8 @@ public class SunPkcs11Connection {
     			
     		try {
     			if(m_logger.isDebugEnabled() && digest != null)
-	    			m_logger.debug("Signing: " + bin2hex(digest) + " len: " + digest.length + " with: " + m_alias + " on: " + m_provider.getName());
-    			System.out.println("Signing: " + bin2hex(digest) + " len: " + digest.length + " with: " + m_alias + " on: " + m_provider.getName());
+	    			m_logger.debug("Signing: " + ConvertUtils.bin2hex(digest) + " len: " + digest.length + " with: " + m_alias + " on: " + m_provider.getName());
+    			System.out.println("Signing: " + ConvertUtils.bin2hex(digest) + " len: " + digest.length + " with: " + m_alias + " on: " + m_provider.getName());
     			/*Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
                 cipher.init(Cipher.ENCRYPT_MODE, m_keyStore.getKey(m_alias, pin.toCharArray()));
                 byte[] sdata = cipher.doFinal(digest);
@@ -200,46 +200,5 @@ public class SunPkcs11Connection {
     	return null;
     }
  
-    /** 
-     * Converts a hex string to byte array
-     * @param hexString input data
-     * @return byte array
-     */
-    public static byte[] hex2bin(String hexString)
-    {
-    	ByteArrayOutputStream bos = new ByteArrayOutputStream();
-    	try {
-    		for(int i = 0; (hexString != null) && 
-    			(i < hexString.length()); i += 2) {
-				String tmp = hexString.substring(i, i+2);  
-				Integer x = new Integer(Integer.parseInt(tmp, 16));
-    			bos.write(x.byteValue());    			
-    		}
-    	} catch(Exception ex) {
-    		m_logger.error("Error converting hex string: " + ex);
-    	}
-    	return bos.toByteArray();
-    }
     
-    /**
-     * Converts a byte array to hex string
-     * @param arr byte array input data
-     * @return hex string
-     */
-    public static String bin2hex(byte[] arr)
-    {
-    	StringBuffer sb = new StringBuffer();
-    	for(int i = 0; i < arr.length; i++) {
-    		String str = Integer.toHexString((int)arr[i]);
-    		if(str.length() == 2)
-    			sb.append(str);
-    		if(str.length() < 2) {
-    			sb.append("0");
-    			sb.append(str);
-    		}
-    		if(str.length() > 2)
-    			sb.append(str.substring(str.length()-2));
-    	}
-    	return sb.toString();
-    }
 }
